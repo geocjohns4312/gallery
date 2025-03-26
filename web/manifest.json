@@ -1,6 +1,6 @@
 {
-    "name": "flutter_code_coverage_single_package",
-    "short_name": "flutter_code_coverage_single_package",
+    "name": "infinite_list",
+    "short_name": "infinite_list",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

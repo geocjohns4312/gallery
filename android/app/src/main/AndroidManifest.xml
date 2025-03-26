@@ -1,7 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_code_coverage_single_package">
-   <application
-        android:label="flutter_code_coverage_single_package"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="infinite_list"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,4 +1,4 @@
-package com.example.flutter_code_coverage_single_package
+package dev.flutter.infinite_list
 
 import io.flutter.embedding.android.FlutterActivity
 

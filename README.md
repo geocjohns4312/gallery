@@ -1,31 +1,29 @@
-# Flutter code coverage in a single package app
+# infinite_list
 
-A simple Flutter project demonstrating how code coverage works in Flutter with a single package APP.
+A Flutter sample app that shows an implementation of the "infinite list" UX pattern. That is,
+a list is shown to the user as if it was continuous although it is internally paginated.
+This is a common feature of mobile apps, from shopping catalogs through search engines
+to social media clients.
 
-Run flutter test with coverage info (root app folder):
+![An animated gif of the app in action](https://user-images.githubusercontent.com/919717/81858860-3a1e3280-9519-11ea-8e9c-9d22ac1bf0ed.gif)
 
-```flutter test --coverage```
+This particular sample uses the [Provider][] package but any other state management approach
+would do.
 
-Coverage will be available in ```/coverage/lcov.info```.
+[Provider]: https://pub.dev/packages/provider
 
-Convert info into html report (```lcov``` needs to be installed):
+## Goals for this sample
 
-```genhtml coverage/lcov.info -o coverage/html```
+* Show how UI code can be "shielded" from complex asynchrony and pagination logic using
+  a `ChangeNotifier`.
+* Illustrate use of `Selector` from the Provider package.
 
-```-o``` = output folder
+## Questions/issues
 
-Coverage report will be available in ```/coverage/html/index.html```.
+If you have a general question about Flutter, the best places to go are:
 
-Remember to add ```/coverage``` folder to the ```.gitignore``` file.
+* [Flutter documentation](https://flutter.dev/)
+* [StackOverflow](https://stackoverflow.com/questions/tagged/flutter)
 
-## Additional info
-
-This is the first part of four repositories teaching how to handle code coverage in Flutter APPs:
-
-[Part 1 - Flutter code coverage in a single package app](https://github.com/cantellir/flutter_code_coverage_single_package);
-
-[Part 2 - Flutter code coverage in a multi package app](https://github.com/cantellir/flutter_code_coverage_multi_package);
-
-[Part 3 - Github actions to handle Flutter APP minimum coverage](https://github.com/cantellir/flutter_code_coverage_minimum_github_action);
-
-[Part 4 - Integration with Codecov analysis tool](https://github.com/cantellir/flutter_code_coverage_github_codecov);
+If you run into an issue with the sample itself, please
+[file an issue](https://github.com/flutter/samples/issues).

@@ -1,6 +1,6 @@
 plugins {
     id "com.android.dynamic-feature"
-    id "kotlin-android"
+    id 'org.jetbrains.kotlin.android' version '1.9.21' apply false
     id "com.google.firebase.crashlytics"
 }
 
@@ -27,7 +27,7 @@ android {
         applicationVariants.all { variant ->
             main.assets.srcDirs += "${project.buildDir}/intermediates/flutter/${variant.name}/deferred_assets"
             main.jniLibs.srcDirs += "${project.buildDir}/intermediates/flutter/${variant.name}/deferred_libs"
-        }
+        }   
     }
 
     defaultConfig {

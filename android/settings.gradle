@@ -17,4 +17,6 @@ pluginManagement {
 
 include ":app", ":crane"
 
-apply from: "${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle/app_plugin_loader.gradle"
+plugins {
+    id 'dev.flutter.app_plugin_loader'
+}

@@ -12,11 +12,8 @@ pluginManagement {
 
     plugins {
         id "dev.flutter.flutter-gradle-plugin" version "1.0.0" apply false
+        id 'dev.flutter.app_plugin_loader'
     }
 }
 
 include ":app", ":crane"
-
-plugins {
-    id 'dev.flutter.app_plugin_loader'
-}

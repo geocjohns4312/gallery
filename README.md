@@ -1,28 +1,31 @@
-# Flutter Gallery
+# Flutter code coverage in a single package app
 
-**NOTE**: The Flutter Gallery is now deprecated, and no longer being active maintained.
+A simple Flutter project demonstrating how code coverage works in Flutter with a single package APP.
 
-Flutter Gallery was a resource to help developers evaluate and use Flutter.
-It is now being used primarily for testing.
+Run flutter test with coverage info (root app folder):
 
-We recommend Flutter developers check out the following resources:
+```flutter test --coverage```
 
-* **Wonderous**
-([web demo](https://wonderous.app/web/),
-[App Store](https://apps.apple.com/us/app/wonderous/id1612491897),
-[Google Play](https://play.google.com/store/apps/details?id=com.gskinner.flutter.wonders),
-[source code](https://github.com/gskinnerTeam/flutter-wonderous-app)):<br>
-A Flutter app that showcases Flutter's support for elegant design and rich animations.
+Coverage will be available in ```/coverage/lcov.info```.
 
-* **Material 3 Demo**
-([web demo](https://flutter.github.io/samples/web/material_3_demo/),
-[source code](https://github.com/flutter/samples/tree/main/material_3_demo)):<br>
-A Flutter app that showcases Material 3 features in the Flutter Material library.
+Convert info into html report (```lcov``` needs to be installed):
 
-* **Flutter Samples**
-([samples](https://flutter.github.io/samples), [source code](https://github.com/flutter/samples)):<br>
-A collection of open source samples that illustrate best practices for Flutter.
+```genhtml coverage/lcov.info -o coverage/html```
 
-* **Widget catalogs**
-([Material](https://docs.flutter.dev/ui/widgets/material), [Cupertino](https://docs.flutter.dev/ui/widgets/cupertino)):<br>
-Catalogs for Material, Cupertino, and other widgets available for use in UI.
+```-o``` = output folder
+
+Coverage report will be available in ```/coverage/html/index.html```.
+
+Remember to add ```/coverage``` folder to the ```.gitignore``` file.
+
+## Additional info
+
+This is the first part of four repositories teaching how to handle code coverage in Flutter APPs:
+
+[Part 1 - Flutter code coverage in a single package app](https://github.com/cantellir/flutter_code_coverage_single_package);
+
+[Part 2 - Flutter code coverage in a multi package app](https://github.com/cantellir/flutter_code_coverage_multi_package);
+
+[Part 3 - Github actions to handle Flutter APP minimum coverage](https://github.com/cantellir/flutter_code_coverage_minimum_github_action);
+
+[Part 4 - Integration with Codecov analysis tool](https://github.com/cantellir/flutter_code_coverage_github_codecov);

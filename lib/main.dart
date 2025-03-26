@@ -1,93 +1,101 @@
-// Copyright 2020 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Flutter team. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'dart:io' show Platform;
-
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:dual_screen/dual_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:window_size/window_size.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:flutter_gen/gen_l10n/gallery_localizations.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:gallery/constants.dart';
+import 'package:gallery/data/gallery_options.dart';
+import 'package:gallery/pages/backdrop.dart';
+import 'package:gallery/pages/splash.dart';
+import 'package:gallery/routes.dart';
+import 'package:gallery/themes/gallery_theme_data.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import 'src/api/item.dart';
-import 'src/catalog.dart';
-import 'src/item_tile.dart';
+import 'layout/adaptive.dart';
 
-void main() {
-  setupWindow();
-  runApp(const MyApp());
+export 'package:gallery/data/demos.dart' show pumpDeferredLibraries;
+
+void main() async {
+  GoogleFonts.config.allowRuntimeFetching = false;
+  await GetStorage.init();
+  runApp(const GalleryApp());
 }
 
-const double windowWidth = 480;
-const double windowHeight = 854;
+class GalleryApp extends StatelessWidget {
+  const GalleryApp({
+    super.key,
+    this.initialRoute,
+    this.isTestMode = false,
+  });
 
-void setupWindow() {
-  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-    WidgetsFlutterBinding.ensureInitialized();
-    setWindowTitle('Infinite List');
-    setWindowMinSize(const Size(windowWidth, windowHeight));
-    setWindowMaxSize(const Size(windowWidth, windowHeight));
-    getCurrentScreen().then((screen) {
-      setWindowFrame(
-        Rect.fromCenter(
-          center: screen!.frame.center,
-          width: windowWidth,
-          height: windowHeight,
-        ),
-      );
-    });
-  }
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String? initialRoute;
+  final bool isTestMode;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Catalog>(
-      create: (context) => Catalog(),
-      child: MaterialApp(
-        title: 'Infinite List Sample',
-        theme: ThemeData.light(),
-        home: const MyHomePage(),
+    return ModelBinding(
+      initialModel: GalleryOptions(
+        themeMode: ThemeMode.system,
+        textScaleFactor: systemTextScaleFactorOption,
+        customTextDirection: CustomTextDirection.localeBased,
+        locale: null,
+        timeDilation: timeDilation,
+        platform: defaultTargetPlatform,
+        isTestMode: isTestMode,
+      ),
+      child: Builder(
+        builder: (context) {
+          final options = GalleryOptions.of(context);
+          final hasHinge = MediaQuery.of(context).hinge?.bounds != null;
+          return MaterialApp(
+            restorationScopeId: 'rootGallery',
+            title: 'Flutter Gallery',
+            debugShowCheckedModeBanner: false,
+            themeMode: options.themeMode,
+            theme: GalleryThemeData.lightThemeData.copyWith(
+              platform: options.platform,
+            ),
+            darkTheme: GalleryThemeData.darkThemeData.copyWith(
+              platform: options.platform,
+            ),
+            localizationsDelegates: const [
+              ...GalleryLocalizations.localizationsDelegates,
+              LocaleNamesLocalizationsDelegate()
+            ],
+            initialRoute: initialRoute,
+            supportedLocales: GalleryLocalizations.supportedLocales,
+            locale: options.locale,
+            localeListResolutionCallback: (locales, supportedLocales) {
+              deviceLocale = locales?.first;
+              return basicLocaleListResolution(locales, supportedLocales);
+            },
+            onGenerateRoute: (settings) =>
+                RouteConfiguration.onGenerateRoute(settings, hasHinge),
+          );
+        },
       ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class RootPage extends StatelessWidget {
+  const RootPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Infinite List Sample')),
-      body: Selector<Catalog, int?>(
-        // Selector is a widget from package:provider. It allows us to listen
-        // to only one aspect of a provided value. In this case, we are only
-        // listening to the catalog's `itemCount`, because that's all we need
-        // at this level.
-        selector: (context, catalog) => catalog.itemCount,
-        builder:
-            (context, itemCount, child) => ListView.builder(
-              // When `itemCount` is null, `ListView` assumes an infinite list.
-              // Once we provide a value, it will stop the scrolling beyond
-              // the last element.
-              itemCount: itemCount,
-              padding: const EdgeInsets.symmetric(vertical: 18),
-              itemBuilder: (context, index) {
-                // Every item of the `ListView` is individually listening
-                // to the catalog.
-                var catalog = Provider.of<Catalog>(context);
-
-                // Catalog provides a single synchronous method for getting the
-                // current data.
-                return switch (catalog.getByIndex(index)) {
-                  Item(isLoading: true) => const LoadingItemTile(),
-                  var item => ItemTile(item: item),
-                };
-              },
-            ),
+    return ApplyTextOptions(
+      child: SplashPage(
+        child: Backdrop(
+          isDesktop: isDisplayDesktop(context),
+        ),
       ),
     );
   }

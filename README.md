@@ -1,29 +1,28 @@
-# infinite_list
+# Flutter Gallery
 
-A Flutter sample app that shows an implementation of the "infinite list" UX pattern. That is,
-a list is shown to the user as if it was continuous although it is internally paginated.
-This is a common feature of mobile apps, from shopping catalogs through search engines
-to social media clients.
+**NOTE**: The Flutter Gallery is now deprecated, and no longer being active maintained.
 
-![An animated gif of the app in action](https://user-images.githubusercontent.com/919717/81858860-3a1e3280-9519-11ea-8e9c-9d22ac1bf0ed.gif)
+Flutter Gallery was a resource to help developers evaluate and use Flutter.
+It is now being used primarily for testing.
 
-This particular sample uses the [Provider][] package but any other state management approach
-would do.
+We recommend Flutter developers check out the following resources:
 
-[Provider]: https://pub.dev/packages/provider
+* **Wonderous**
+([web demo](https://wonderous.app/web/),
+[App Store](https://apps.apple.com/us/app/wonderous/id1612491897),
+[Google Play](https://play.google.com/store/apps/details?id=com.gskinner.flutter.wonders),
+[source code](https://github.com/gskinnerTeam/flutter-wonderous-app)):<br>
+A Flutter app that showcases Flutter's support for elegant design and rich animations.
 
-## Goals for this sample
+* **Material 3 Demo**
+([web demo](https://flutter.github.io/samples/web/material_3_demo/),
+[source code](https://github.com/flutter/samples/tree/main/material_3_demo)):<br>
+A Flutter app that showcases Material 3 features in the Flutter Material library.
 
-* Show how UI code can be "shielded" from complex asynchrony and pagination logic using
-  a `ChangeNotifier`.
-* Illustrate use of `Selector` from the Provider package.
+* **Flutter Samples**
+([samples](https://flutter.github.io/samples), [source code](https://github.com/flutter/samples)):<br>
+A collection of open source samples that illustrate best practices for Flutter.
 
-## Questions/issues
-
-If you have a general question about Flutter, the best places to go are:
-
-* [Flutter documentation](https://flutter.dev/)
-* [StackOverflow](https://stackoverflow.com/questions/tagged/flutter)
-
-If you run into an issue with the sample itself, please
-[file an issue](https://github.com/flutter/samples/issues).
+* **Widget catalogs**
+([Material](https://docs.flutter.dev/ui/widgets/material), [Cupertino](https://docs.flutter.dev/ui/widgets/cupertino)):<br>
+Catalogs for Material, Cupertino, and other widgets available for use in UI.
